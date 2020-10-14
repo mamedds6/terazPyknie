@@ -123,7 +123,7 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(55, 20);
             this.textBox2.TabIndex = 8;
-            this.textBox2.Text = "6969";
+            this.textBox2.Text = "230";
             // 
             // textBox3
             // 

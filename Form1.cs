@@ -49,7 +49,7 @@ namespace terazPyknie
         #endregion
 
         #region //misc        
-        static List<Point> positions = new List<Point>();
+        List<Point> positions = new List<Point>(); //static
 
         static int xInSzablon = 250;
         static int smth = 0;
@@ -69,7 +69,7 @@ namespace terazPyknie
         Point pSzablonZakoncz = new Point(678, 569);
 
         static int sleepPageLoading;
-        static int sleepMid;
+        int sleepMid;
         static int sleepInput;
 
         static Random rand = new Random(1);
@@ -128,7 +128,7 @@ namespace terazPyknie
             // positions.Add(pSzablonKlikNaSrodku2);
             // positions.Add(pSzablonZakoncz);
 
-            positions.Add(new Point(540, 230)); //tylko wrzucic tu wspolrzedne z 2 okienek (1 mouse delay, 3 loadingPage delay)
+            positions.Add(new Point(540, sleepMid)); //tylko wrzucic tu wspolrzedne z 2 okienek (1 mouse delay, 3 loadingPage delay)
             positions.Add(new Point(1000, 250));
         }
 
@@ -136,7 +136,11 @@ namespace terazPyknie
         {
             InitializeComponent();
 
+            //hmm
+            sleepMid = int.Parse(textBox2.Text);
+
             listInit();
+
             backgroundWorker1.WorkerSupportsCancellation = true;
             backgroundWorker2.WorkerSupportsCancellation = true; // ?
             backgroundWorker2.RunWorkerAsync();
@@ -178,15 +182,17 @@ namespace terazPyknie
 
             mouseMoveAndDoubleClick(positions[i]);
             // i++;
-            // ct v  ct s
+
             Thread.Sleep(sleepInput);
             SendKeys.SendWait("^{v}");
-            Thread.Sleep(sleepInput);
-            Thread.Sleep(sleepInput);
             Thread.Sleep(sleepInput);
             SendKeys.SendWait("^{s}");
 
             Thread.Sleep(sleepPageLoading);
+
+            //hmm
+            // sleepMid = int.Parse(textBox2.Text);
+            // positions[0] = new Point(540, sleepMid);
 
         }
 
@@ -207,7 +213,7 @@ namespace terazPyknie
         //         i++;
         //     }
         //     pressEnd();
-        //     Thread.Sleep(sleepMid);
+        //     //Thread.Sleep(sleepMid);
         //     mouseMoveAndClick(positions[i]);
         // }
 
@@ -277,6 +283,10 @@ namespace terazPyknie
                 }
 
                 //workLoop2();
+
+                sleepMid = int.Parse(textBox2.Text);
+                positions[0] = new Point(540, sleepMid);
+
                 workLoop();
                 licz++;
                 label1.Invoke(new Action(() => label1.Text = licz.ToString()));
@@ -291,6 +301,8 @@ namespace terazPyknie
                 sleepInput = int.Parse(textBox1.Text);
                 sleepMid = int.Parse(textBox2.Text);
                 sleepPageLoading = int.Parse(textBox3.Text);
+
+                //positions[0] = positions[0]
             }
         }
 
@@ -317,7 +329,7 @@ namespace terazPyknie
                 }
 
                 Thread.Sleep(200);
-                //button2.Invoke(new Action(() => button2.Text = sleepMid.ToString()));
+                //button2.Invoke(new Action(() => button2.Text = sleepMid.ToString())); //zmienione sleepMi
                 //button2.BackColor = Color.FromArgb(rand.Next());
             }
         }
