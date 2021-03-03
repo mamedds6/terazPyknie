@@ -346,7 +346,7 @@ namespace terazPyknie
             licz = 0;
             label1.Text = licz.ToString();
         }
-
+        
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox1.Checked)
