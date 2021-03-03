@@ -129,7 +129,8 @@ namespace terazPyknie
             // positions.Add(pSzablonZakoncz);
 
             positions.Add(new Point(540, sleepMid)); //tylko wrzucic tu wspolrzedne z 2 okienek (1 mouse delay, 3 loadingPage delay)
-            positions.Add(new Point(1000, 250));
+             positions.Add(new Point(815, 250));
+        //  positions.Add(new Point(910, 250));
         }
 
         public Form1()
@@ -180,7 +181,8 @@ namespace terazPyknie
 
             Thread.Sleep(sleepPageLoading);
 
-            mouseMoveAndDoubleClick(positions[i]);
+             mouseMoveAndDoubleClick(positions[i]);
+          // mouseMoveAndClick(positions[i]);
             // i++;
 
             Thread.Sleep(sleepInput);
@@ -246,7 +248,7 @@ namespace terazPyknie
         {
             mouseMoveAndClick(positions[5]);
             pressPageUp();
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
             mouseMoveAndClick(positions[6]);
         }
 
