@@ -12,6 +12,7 @@ using System.Timers;
 using System.Runtime.InteropServices;
 using System.Configuration;
 using System.Threading;
+using System.Media;
 
 namespace terazPyknie
 {
@@ -339,6 +340,8 @@ namespace terazPyknie
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             label1.Invoke(new Action(() => workerStoping()));
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer (@"C:\SOUND\Windows Startup.wav");
+            player.Play();
         }
 
         private void label1_Click(object sender, EventArgs e)
