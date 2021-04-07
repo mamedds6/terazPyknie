@@ -12,6 +12,7 @@ using System.Timers;
 using System.Runtime.InteropServices;
 using System.Configuration;
 using System.Threading;
+using System.Media;
 
 namespace terazPyknie
 {
@@ -112,6 +113,19 @@ namespace terazPyknie
             mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
             Thread.Sleep(sleepInput);
         }
+        private void panel1_MouseWheel(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            // Update the drawing based upon the mouse wheel scrolling.
+      
+            int numberOfTextLinesToMove = e.Delta * SystemInformation.MouseWheelScrollLines / 120;
+            int numberOfPixelsToMove = numberOfTextLinesToMove;
+
+            if (numberOfPixelsToMove != 0) {
+                System.Drawing.Drawing2D.Matrix translateMatrix = new  System.Drawing.Drawing2D.Matrix();
+                translateMatrix.Translate(0, numberOfPixelsToMove);
+              //  mousePath.Transform(translateMatrix);
+            }
+        }
 
         private void listInit()
         {
@@ -129,7 +143,7 @@ namespace terazPyknie
             // positions.Add(pSzablonZakoncz);
 
             positions.Add(new Point(540, sleepMid)); //tylko wrzucic tu wspolrzedne z 2 okienek (1 mouse delay, 3 loadingPage delay)
-             positions.Add(new Point(815, 250));
+             positions.Add(new Point(915, 250));
         //  positions.Add(new Point(910, 250));
         }
 
@@ -178,11 +192,16 @@ namespace terazPyknie
             int i = 0;
             mouseMoveAndClick(positions[i]);
             i++;
-
+            
             Thread.Sleep(sleepPageLoading);
+            
+        //  Scroll
+        // MouseWheelScrollLines 
 
-             mouseMoveAndDoubleClick(positions[i]);
-          // mouseMoveAndClick(positions[i]);
+        // panel1_MouseWheel(positions[i]);
+
+            mouseMoveAndDoubleClick(positions[i]);
+        //  mouseMoveAndClick(positions[i]);
             // i++;
 
             Thread.Sleep(sleepInput);
@@ -192,6 +211,7 @@ namespace terazPyknie
 
             Thread.Sleep(sleepPageLoading);
 
+          //  SendKeys.SendWait("{NUM4}");                 //NIE DZIAŁA DO KOŃCA
             //hmm
             // sleepMid = int.Parse(textBox2.Text);
             // positions[0] = new Point(540, sleepMid);
@@ -339,6 +359,8 @@ namespace terazPyknie
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             label1.Invoke(new Action(() => workerStoping()));
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer (@"C:\SOUND\Windows Error.wav");
+            player.Play();
         }
 
         private void label1_Click(object sender, EventArgs e)
