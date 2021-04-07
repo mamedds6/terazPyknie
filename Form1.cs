@@ -227,6 +227,7 @@ namespace terazPyknie
 
 
                 Thread.Sleep(sleepPageLoading);
+                // Thread.Sleep(sleepPageLoading);
 
                 //  Scroll
                 // MouseWheelScrollLines 
