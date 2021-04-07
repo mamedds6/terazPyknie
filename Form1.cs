@@ -42,6 +42,8 @@ namespace terazPyknie
 
         // Declare some keyboard keys as constants with its respective code
         // See Virtual Code Keys: https://msdn.microsoft.com/en-us/library/dd375731(v=vs.85).aspx
+        // https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.sendkeys.send?redirectedfrom=MSDN&view=net-5.0#System_Windows_Forms_SendKeys_Send_System_String_
+        // SendKeys.Send(String) Method
         public const int KEYEVENTF_EXTENDEDKEY = 0x0001; //Key down flag
         public const int KEYEVENTF_KEYUP = 0x0002; //Key up flag
         public const int VK_RCONTROL = 0xA3; //Right Control key code
@@ -51,6 +53,8 @@ namespace terazPyknie
 
         #region //misc        
         List<Point> positions = new List<Point>(); //static
+
+        static int wysokoscLinii = 234;
 
         static int xInSzablon = 250;
         static int smth = 0;
@@ -116,14 +120,15 @@ namespace terazPyknie
         private void panel1_MouseWheel(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             // Update the drawing based upon the mouse wheel scrolling.
-      
+
             int numberOfTextLinesToMove = e.Delta * SystemInformation.MouseWheelScrollLines / 120;
             int numberOfPixelsToMove = numberOfTextLinesToMove;
 
-            if (numberOfPixelsToMove != 0) {
-                System.Drawing.Drawing2D.Matrix translateMatrix = new  System.Drawing.Drawing2D.Matrix();
+            if (numberOfPixelsToMove != 0)
+            {
+                System.Drawing.Drawing2D.Matrix translateMatrix = new System.Drawing.Drawing2D.Matrix();
                 translateMatrix.Translate(0, numberOfPixelsToMove);
-              //  mousePath.Transform(translateMatrix);
+                //  mousePath.Transform(translateMatrix);
             }
         }
 
@@ -143,8 +148,9 @@ namespace terazPyknie
             // positions.Add(pSzablonZakoncz);
 
             positions.Add(new Point(540, sleepMid)); //tylko wrzucic tu wspolrzedne z 2 okienek (1 mouse delay, 3 loadingPage delay)
-             positions.Add(new Point(915, 250));
-        //  positions.Add(new Point(910, 250));
+            positions.Add(new Point(540, 180)); //tylko wrzucic tu wspolrzedne z 2 okienek (1 mouse delay, 3 loadingPage delay)
+            positions.Add(new Point(915, 250));
+            //  positions.Add(new Point(910, 250));
         }
 
         public Form1()
@@ -189,33 +195,60 @@ namespace terazPyknie
 
         private void workLoop()
         {
-            int i = 0;
-            mouseMoveAndClick(positions[i]);
-            i++;
-            
-            Thread.Sleep(sleepPageLoading);
-            
-        //  Scroll
-        // MouseWheelScrollLines 
+            if (checkBox2.Checked)
+            {
+                int i = 1;
+                Point p = new Point(positions[i].X, positions[i].Y + ((licz + 1) * wysokoscLinii) / 10);
 
-        // panel1_MouseWheel(positions[i]);
+                mouseMoveAndClick(p);
+                i++;
 
-            mouseMoveAndDoubleClick(positions[i]);
-        //  mouseMoveAndClick(positions[i]);
-            // i++;
+                Thread.Sleep(sleepPageLoading);
 
-            Thread.Sleep(sleepInput);
-            SendKeys.SendWait("^{v}");
-            Thread.Sleep(sleepInput);
-            SendKeys.SendWait("^{s}");
+                mouseMoveAndDoubleClick(positions[i]);
+                //  mouseMoveAndClick(positions[i]);
 
-            Thread.Sleep(sleepPageLoading);
+                Thread.Sleep(sleepInput);
+                SendKeys.SendWait("^{v}");
+                Thread.Sleep(sleepInput);
+                SendKeys.SendWait("^{s}");
+                Thread.Sleep(sleepPageLoading);
 
-          //  SendKeys.SendWait("{NUM4}");                 //NIE DZIAŁA DO KOŃCA
-            //hmm
-            // sleepMid = int.Parse(textBox2.Text);
-            // positions[0] = new Point(540, sleepMid);
+                mouseMoveAndClick(new Point(550, 180));
+                Thread.Sleep(sleepInput);
+                SendKeys.SendWait("{LEFT}");
+                Thread.Sleep(sleepInput);
+            }
+            else
+            {
+                int i = 0;
+                mouseMoveAndClick(positions[i]);
+                i += 2;
 
+
+                Thread.Sleep(sleepPageLoading);
+
+                //  Scroll
+                // MouseWheelScrollLines 
+
+                // panel1_MouseWheel(positions[i]);
+
+                mouseMoveAndDoubleClick(positions[i]);
+                //  mouseMoveAndClick(positions[i]);
+                // i++;
+
+                Thread.Sleep(sleepInput);
+                SendKeys.SendWait("^{v}");
+                Thread.Sleep(sleepInput);
+                SendKeys.SendWait("^{s}");
+
+                Thread.Sleep(sleepPageLoading);
+
+                //  SendKeys.SendWait("{NUM4}");                 //NIE DZIAŁA DO KOŃCA
+                //hmm
+                // sleepMid = int.Parse(textBox2.Text);
+                // positions[0] = new Point(540, sleepMid);
+            }
         }
 
         // private void workLoop()
@@ -359,7 +392,7 @@ namespace terazPyknie
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             label1.Invoke(new Action(() => workerStoping()));
-            System.Media.SoundPlayer player = new System.Media.SoundPlayer (@"C:\SOUND\Windows Error.wav");
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"C:\SOUND\Windows Error.wav");
             player.Play();
         }
 
@@ -368,13 +401,20 @@ namespace terazPyknie
             licz = 0;
             label1.Text = licz.ToString();
         }
-        
+
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox1.Checked)
                 ActiveForm.TopMost = true;
             else
                 ActiveForm.TopMost = false;
+        }
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            // if (checkBox2.Checked)
+            // ActiveForm.TopMost = true;
+            // else
+            // ActiveForm.TopMost = false;
         }
     }
 }
