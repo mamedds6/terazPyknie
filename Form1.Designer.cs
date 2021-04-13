@@ -170,7 +170,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Location = new System.Drawing.Point(1100, 200);
+            this.Location = new System.Drawing.Point(2100, 200);
             this.Name = "Form1";
             this.Text = "AutoClick";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();

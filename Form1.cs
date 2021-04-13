@@ -54,7 +54,8 @@ namespace terazPyknie
         #region //misc        
         List<Point> positions = new List<Point>(); //static
 
-        static int wysokoscLinii = 234;
+        static int wysokoscLinii = 24;  // MONITOR
+                                        //  static int wysokoscLinii = 30;  //LAPEK
 
         static int xInSzablon = 250;
         static int smth = 0;
@@ -147,10 +148,11 @@ namespace terazPyknie
             // positions.Add(pSzablonKlikNaSrodku2);
             // positions.Add(pSzablonZakoncz);
 
-            positions.Add(new Point(540, sleepMid)); //tylko wrzucic tu wspolrzedne z 2 okienek (1 mouse delay, 3 loadingPage delay)
-            positions.Add(new Point(540, 180)); //tylko wrzucic tu wspolrzedne z 2 okienek (1 mouse delay, 3 loadingPage delay)
-            positions.Add(new Point(915, 250));
-            //  positions.Add(new Point(910, 250));
+            positions.Add(new Point(530, sleepMid)); //tylko wrzucic tu wspolrzedne z 2 okienek (1 mouse delay, 3 loadingPage delay)
+            positions.Add(new Point(530, 180)); //ŁĄCZNIK MONITOR
+            positions.Add(new Point(800, 245)); //NAZWA - MIEJSCE WKLEJANIA MONITOR
+            // positions.Add(new Point(530, 225)); //ŁĄCZNIK LAPEK
+            // positions.Add(new Point(930, 308)); //NAZWA - MIEJSCE WKLEJANIA
         }
 
         public Form1()
@@ -198,22 +200,30 @@ namespace terazPyknie
             if (checkBox2.Checked)
             {
                 int i = 1;
-                Point p = new Point(positions[i].X, positions[i].Y + ((licz + 1) * wysokoscLinii) / 10);
+                Point p = new Point(positions[i].X, positions[i].Y + ((licz + 1) * wysokoscLinii));
 
                 mouseMoveAndClick(p);
                 i++;
 
                 Thread.Sleep(sleepPageLoading);
 
-                mouseMoveAndDoubleClick(positions[i]);
-                //  mouseMoveAndClick(positions[i]);
+                // mouseMoveAndDoubleClick(positions[i]);
+                // mouseMoveAndClick(positions[i]);
 
+                mouseMoveAndDoubleClick(new Point(850, 250));         // 1 DODATKOWY TEKST - POZYCJA
+                Thread.Sleep(sleepInput);                           //
+                SendKeys.SendWait("^{v}");                      // WKLEJENIE SCHOWKA
+                //SendKeys.SendWait("+{iBT}");                       //  1 DODATKOWY TEKST DO WKLEJENIA
                 Thread.Sleep(sleepInput);
-                SendKeys.SendWait("^{v}");
+
+                mouseMoveAndDoubleClick(new Point(730, 250));         // 2 DODATKOWY TEKST - POZYCJA
                 Thread.Sleep(sleepInput);
-                SendKeys.SendWait("^{s}");
+                SendKeys.SendWait("+(pP)");                      //  2 DODATKOWY TEKST DO WKLEJENIA
+                Thread.Sleep(sleepInput);                           //
+                SendKeys.SendWait("^{s}");                      // ZAPIS
                 Thread.Sleep(sleepPageLoading);
 
+                // mouseMoveAndClick(new Point(550, 225)); //lapek
                 mouseMoveAndClick(new Point(550, 180));
                 Thread.Sleep(sleepInput);
                 SendKeys.SendWait("{LEFT}");
