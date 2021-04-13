@@ -218,7 +218,7 @@ namespace terazPyknie
 
                 mouseMoveAndDoubleClick(new Point(730, 250));         // 2 DODATKOWY TEKST - POZYCJA
                 Thread.Sleep(sleepInput);
-                SendKeys.SendWait("+(pP)");                      //  2 DODATKOWY TEKST DO WKLEJENIA
+                SendKeys.SendWait("lbpr");                      //  2 DODATKOWY TEKST DO WKLEJENIA
                 Thread.Sleep(sleepInput);                           //
                 SendKeys.SendWait("^{s}");                      // ZAPIS
                 Thread.Sleep(sleepPageLoading);
